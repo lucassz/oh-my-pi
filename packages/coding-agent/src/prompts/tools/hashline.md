@@ -19,8 +19,9 @@ Each op line is ONE of:
 Op lines carry no content — payload goes on the next line.
 
 WRONG: + 5pg| some code
+WRONG: {{hsep}} some code
 RIGHT: + 5pg
-       {{hsep}} some code
+{{hsep}}some code
 
 A single `+`/`<`/`=` op accepts MANY `{{hsep}}` payload lines. To insert N consecutive lines, write ONE op followed by N payload lines — NEVER N ops with one payload each.
 
@@ -37,8 +38,9 @@ RIGHT (one op, many payload lines):
 </format-reminder>
 
 <rules>
-- Every payload line MUST start with `{{hsep}}`.
-- Payload is verbatim — NEVER escape unicode.
+- Every payload line MUST start with `{{hsep}}` immediately followed by payload text. Do NOT add a readability space after `{{hsep}}`.
+- If payload text intentionally starts with a space, write two leading spaces after `{{hsep}}` (e.g. `{{hsep}}  indented`); the first space is payload, not padding.
+- Payload text is otherwise verbatim — NEVER escape unicode.
 - **Payload is only what's NEW relative to your range:**
   - `=` replaces inside; NEVER include lines outside.
   - `+`/`<` adds at the anchor; NEVER repeat line A or neighbors.
